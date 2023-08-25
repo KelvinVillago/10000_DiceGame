@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Country Info</title>
+    <title>10000 Dice Game</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="./static/css/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
@@ -13,47 +13,27 @@
 
  </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#">Country Finder</a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <a class="nav-link active"  name="home">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link"  name="find-country">Find a Country</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </nav>
-    </header>
     <main>
-        <div class="is-visible" id="home">
-            <div class="hero-image">
-                <div class="hero-text">
-                  <h1>Find Your Country</h1>
-                 <button class="light-dark-button btn btn-info btn-lg" value="Dark">Dark</button> | <button value="Light" class="light-dark-button btn btn-primary btn-lg">Light</Button>
-                </div>
-            </div>
-        </div>
-
-        <div class="row is-invisible" id="find-country">
-          <form id="find-countries-form">
-            <div class="m-4 col-10">
-                <h2 class="display-3 my-3">Please enter a name of a country</h2>
-                <input class="form-control my-3" name="country" placeholder="Country Name">
-                <button id="find-country-input" type="submit" class="form-control btn btn-primary my-3">Find Countries</button>
+        <div class="row is-visible" id="find-country">
+          
+          <form id="roll-dice">
+            <div class="col-12 text-center">
+                <h2 class="display-3 text-center my-5">10000 Dice Game</h2>
+                <button type="button" class="play-button btn btn-secondary btn-lg" value="Play">Roll</button> | <button value="Clear" type="button" class="play-button btn btn-secondary btn-lg">Clear</Button>
             </div>    
           </form>
-          <div class="row" id="country-table">
+          <div class="row my-3" id="dice-table">
             
           </div>
+
+          <div class="is-invisible" id="home">
+            <div class="hero-image">
+                <div class="hero-text">
+                  <h1 class="display-3">You Win</h1>
+                </div>
+            </div>
+          </div>
+
         </div>
         
     </main>

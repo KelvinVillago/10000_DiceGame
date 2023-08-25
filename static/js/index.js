@@ -1,36 +1,23 @@
 console.log('Hello it me');
 pageLoader();
 
-
 // Function to load our page and set event listeners
 function pageLoader(){
     console.log('Loading the page with functionality...');
-    document.body.style.backgroundColor = '#b5b5b5'
+    document.body.style.backgroundColor = '#4a8066'
 
-    // Get the color buttons and add change background event listener
-    const colorButtons = document.getElementsByClassName('light-dark-button');
-    for (let btn of colorButtons){
-        btn.addEventListener('click', changeBackgroundColor);
+    const buttons = document.getElementsByClassName('play-button');
+    for (let btn of buttons){
+        btn.addEventListener('click', decision);
     };
-
-    // Get the nav links and add the changeView event listener
-    const navLinks = document.getElementsByClassName('nav-link');
-    for (let link of navLinks){
-        link.addEventListener('click', changeView);
-    }
-
-    // Add the brew finder when the form submits
-    const findCountryForm = document.querySelector('#find-countries-form');
-    findCountryForm.addEventListener('submit', (e) => findCountries(e, 1));
-
+   
 }
 
-// Create a function that will change the background color
-function changeBackgroundColor(e){
-    console.log('clicked color button');
+function decision(e){
+    console.log('clicked play button');
     console.log(e.target.value);
-    if (e.target.value === 'Dark'){
-        document.body.style.backgroundColor = '#5c5c5c'
+    if (e.target.value === 'Play'){
+        playGame();
     } else {
         document.body.style.backgroundColor = '#b5b5b5'
     }
@@ -52,58 +39,74 @@ function changeView(event){
     toTurnOn.classList.replace('is-invisible', 'is-visible');
 }
 
+class Player{
+    constructor(){
+        this.hand = [];
+        this.score = 0;
+    }
 
-function findCountries(event, pageNumber){
-    event.preventDefault();
-    // console.dir(event.target.city);
-    const countryName = document.getElementsByName('country')[0].value;
-    console.log(`Looking for countries with ${countryName}...`);
-    const url = `https://restcountries.com/v3.1/name/${countryName.toLowerCase()}`;
+    rollNum(){
+        return Math.floor(Math.random() * (6 - 1 + 1) + 1);
+    }
 
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {if (data.length){displayCountries(data, pageNumber)}})
-        .catch(err => console.error(err))
+    rollDice(){
+        this.hand = [];
+        for(var i = 0; i < 6; i++){
+            this.hand.push(this.rollNum());
+        }
+    }
+
+    getHand(){
+        return this.hand
+    }
+
+    getScore(){
+        return this.score;
+    }
+
+    scoreHand(){
+        total = 0;
+        data = {
+            1:[0,100,200,1000,1100,1200,2000],
+            2:[0,0,0,200,200,200,400],
+            3:[0,0,0,300,300,300,600],
+            4:[0,0,0,400,400,400,800],
+            5:[0,50,100,500,550,600,1000],
+            6:[0,0,0,0,0,0,0]
+        }
+
+        //Check for straight
+        if(this.hand.sort().join('') == '123456'){
+            total = 1500;
+        }
+        else{
+            for(var i=1; i<7; i++){
+                let count = this.hand.filter(x => x === i).length;
+                total += data[i][count];
+            }
+        }
+        this.score += total;
+        return total
+    }
 }
 
-
-// Callback Function for findBreweries that will insert breweries into table
-function displayCountries(data, pageNumber){
-    data.sort( (a, b) => {
-        if (a.city > b.city){return 1}
-        else if (a.city < b.city){ return -1}
-        else { return 0}
-    })
-    let table = document.getElementById('country-table');
+function playGame(){
+    console.log('Playing');
+    let table = document.getElementById('dice-table');
     
+    player.rollDice();
 
-    // write a row for each brewery in data
-    let country = data[0]
-    let newCol = document.createElement('div');
-    newCol.classList.add('col-3')
-    table.append(newCol);
+    for(var i = 0; i < player.getHand().length; i++){
+        let newCol = document.createElement('div');
+        newCol.classList.add('col-2')
+        table.append(newCol);
 
-    let divider = document.createElement('div');
-    divider.classList.add('card', 'm-3', 'border-3', 'border-dark');
-    newCol.append(divider);
+        let divider = document.createElement('div');
+        divider.classList.add('card', 'm-1', 'border-none');
+        newCol.append(divider);
 
-    const td = document.createElement('td');
-    td.innerHTML = `<h2>${country.name.common}</h2>`;
-    td.classList.add('text-center', 'display-4')
-    divider.append(td);
-
-    //newDataCell(tr, country.name.common);
-    newDataCellImg(divider, country?.flags.png);
-    newDataCellImg(divider, country?.coatOfArms.png);
-
-    
-    let divider2 = document.createElement('div');
-    divider2.classList.add('card-body', 'm-3');
-    divider.append(divider2);
-    newDataCell(divider2, 'Currencies: ' + country?.currencies);
-    newDataCell(divider2, 'Capital: ' + (country.capital ? country.capital[0] :  'No Capital'));
-    newDataCell(divider2, 'Languages: ' + Object.values(country?.languages).toString());
-    
+        newDataCellImg(divider, `../static/images/${player.getHand()[i]}.jpg`);
+    }
 }
 
 // Helper function to create a new data cell for table
@@ -119,6 +122,7 @@ function newDataCell(tr, value){
 
 // Helper function to create new data where an image needs to be displayed
 function newDataCellImg(tr, value){
+    console.log(value);
     let img = document.createElement('img');
     img.src = value ?? '...'
     if(img.src == "..."){
@@ -136,3 +140,6 @@ function clearTable(table){
         btn.remove()
     }
 }
+
+
+let player = new Player();
