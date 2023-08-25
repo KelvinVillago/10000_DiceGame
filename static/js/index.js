@@ -19,7 +19,9 @@ function decision(e){
     if (e.target.value === 'Play'){
         playGame();
     } else {
-        document.body.style.backgroundColor = '#b5b5b5'
+        let table = document.getElementById('dice-table');
+        clearTable(table);
+        player.clearScore();
     }
 }
 
@@ -64,9 +66,14 @@ class Player{
         return this.score;
     }
 
+    clearScore(){
+        this.score = 0;
+        return this.score;
+    }
+
     scoreHand(){
-        total = 0;
-        data = {
+        let total = 0;
+        let data = {
             1:[0,100,200,1000,1100,1200,2000],
             2:[0,0,0,200,200,200,400],
             3:[0,0,0,300,300,300,600],
@@ -94,6 +101,8 @@ function playGame(){
     console.log('Playing');
     let table = document.getElementById('dice-table');
     
+    clearTable(table);
+
     player.rollDice();
 
     for(var i = 0; i < player.getHand().length; i++){
@@ -107,12 +116,32 @@ function playGame(){
 
         newDataCellImg(divider, `../static/images/${player.getHand()[i]}.jpg`);
     }
+
+    let score = document.createElement('div');
+    score.classList.add('col-6', 'text-center','my-3', 'bg-secondary', 'p-3')
+    table.append(score);
+    newDataCell(score, 'Score: ' + player.scoreHand().toString());
+    
+    let total = document.createElement('div');
+    total.classList.add('col-6', 'text-center', 'my-3', 'bg-secondary', 'p-3')
+    table.append(total);
+    newDataCell(total, 'Total: ' + player.getScore().toString());
+
+    if(player.getScore() >= 10000){
+        let idToTurnOn = 'home';
+        const toTurnOn = document.getElementById(idToTurnOn);
+        toTurnOn.classList.replace('is-invisible', 'is-visible');
+        setTimeout(() => {
+            clearTable(table);
+        }, 3000);
+    }
 }
 
 // Helper function to create a new data cell for table
 function newDataCell(tr, value){
-    let td = document.createElement('td');
+    let td = document.createElement('div');
     td.innerText = value ?? '-';
+    td.classList.add('display-2')
     tr.append(td);
 
     
@@ -135,11 +164,11 @@ function newDataCellImg(tr, value){
 // Helper function to clear the brewery table
 function clearTable(table){
     table.innerHTML = '';
-    const buttonsToClear = document.querySelectorAll('.prev-next-btn');
-    for (let btn of buttonsToClear){
-        btn.remove()
-    }
-}
 
+    let idToTurnOn = 'home';
+    const toTurnOn = document.getElementById(idToTurnOn);
+    toTurnOn.classList.replace('is-visible', 'is-invisible');
+    
+}
 
 let player = new Player();

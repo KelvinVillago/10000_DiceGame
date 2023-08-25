@@ -2,6 +2,9 @@ body{
     min-height: 100vh;
 }
 
+td{
+    justify-content: center;
+}
 
 .hero-image {
   background: rgb(13, 185, 53);
