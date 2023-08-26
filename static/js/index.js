@@ -118,22 +118,22 @@ function playGame(){
     }
 
     let score = document.createElement('div');
-    score.classList.add('col-6', 'text-center','my-3', 'bg-secondary', 'p-3')
+    score.classList.add('score', 'col-6', 'text-center', 'p-3')
     table.append(score);
-    newDataCell(score, 'Score: ' + player.scoreHand().toString());
+    newDataCell(score, 'Score: ' + player.scoreHand().toString() + ' pts');
     
     let total = document.createElement('div');
-    total.classList.add('col-6', 'text-center', 'my-3', 'bg-secondary', 'p-3')
+    total.classList.add('total', 'col-6', 'text-center', 'p-3')
     table.append(total);
-    newDataCell(total, 'Total: ' + player.getScore().toString());
+    newDataCell(total, 'Total: ' + player.getScore().toString() + ' pts');
 
     if(player.getScore() >= 10000){
         let idToTurnOn = 'home';
         const toTurnOn = document.getElementById(idToTurnOn);
         toTurnOn.classList.replace('is-invisible', 'is-visible');
-        setTimeout(() => {
-            clearTable(table);
-        }, 3000);
+        // setTimeout(() => {
+        //     clearTable(table);
+        // }, 3000);
     }
 }
 
