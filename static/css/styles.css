@@ -1,5 +1,8 @@
 body{
     min-height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 td{
@@ -37,22 +40,14 @@ td{
     display:block;
 }
 
-.light-dark-button{
-    color:black ;
-    background-clip: none;
-    -webkit-background-clip: none;
-    -webkit-text-fill-color: black;
-}
-
-.h-300{
-    height: 300px;
-}
-
 .play-button{
-    height:8vh;
-    width:8vw;
-    margin: 5vw;
-    background-color:rgb(141, 141, 141);
+    height: 10vh;
+    width: 10vw;
+    margin: 3vh;
+    background-color: rgba(141, 141, 141, 0.2);
+    font-size: 5vh;
+    font-family: 'Dancing Script', cursive;
+    color: rgb(212, 212, 212);
 }
 
 .play-button:hover{
@@ -62,6 +57,7 @@ td{
 .title{
     font-family: 'Dancing Script', cursive;
     font-size: 10vh;
+    color: rgb(212, 212, 212);
 }
 
 .score{
@@ -71,7 +67,9 @@ td{
     background-color: rgba(167, 167, 167, 0.5);
     margin-top: 10vh;
     font-family: 'Poiret One', cursive;
-    font-style:italic;
+    font-style: italic;
+    color: rgb(212, 212, 212);
+
 }
 
 .total{
@@ -81,5 +79,7 @@ td{
     background-color: rgba(167, 167, 167, 0.5);
     margin-top: 10vh;
     font-family: 'Poiret One', cursive;
-    font-style:italic;
+    font-style: italic;
+    color: rgb(212, 212, 212);
+
 }
