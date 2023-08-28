@@ -83,3 +83,8 @@ td{
     color: rgb(212, 212, 212);
 
 }
+
+.win-text{
+    font-size: 3vh;
+    padding: 0;
+}
