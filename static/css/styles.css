@@ -11,7 +11,7 @@ td{
 
 .hero-image {
   background: rgb(13, 185, 53);
-  height: 10vh;
+  height: 15vh;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -85,6 +85,6 @@ td{
 }
 
 .win-text{
-    font-size: 3vh;
+    font-size: 5vh;
     padding: 0;
 }
